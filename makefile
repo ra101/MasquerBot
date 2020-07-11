@@ -1,0 +1,2 @@
+run:
+	gunicorn wsgi:app
