@@ -3,6 +3,6 @@ from flask_restful import Api
 from app.controllers import HomeController
 
 
-api = Api()
+APIs = Api()
 
-api.add_resource(HomeController, "/home.html")
+APIs.add_resource(HomeController, "/home.html")
