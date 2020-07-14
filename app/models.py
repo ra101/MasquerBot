@@ -1,11 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-
-from app.config import SQLALCHEMY_DATABASE_URI
 
 db = SQLAlchemy()
-
-# engine = create_engine(SQLALCHEMY_DATABASE_URI)
 
 
 # class User(db.Model):
@@ -18,7 +13,3 @@ db = SQLAlchemy()
 #     def __init__(self, name=None, password=None):
 #         self.name = name
 #         self.password = password
-
-
-# # Create tables.
-# Base.metadata.create_all(bind=engine)
