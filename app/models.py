@@ -17,10 +17,9 @@ class UserAccount(db.Model):
     updated_at = db.Column(db.DateTime())
 
     def __init__(self, username: str) -> str:
-        self.username_hash = sha512(username).hexdigest()
+        self.username_hash = sha512(bytes(username, "utf-8")).hexdigest()
         eth_k = generate_eth_key()
         self.private_key = eth_k.to_hex()
         self.public_key = eth_k.public_key.to_hex()
         self.updated_at = self.created_at = datetime.now()
         del eth_k
-        return self.public_key

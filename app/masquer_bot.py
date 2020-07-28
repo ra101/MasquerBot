@@ -17,7 +17,11 @@ bot = telebot.TeleBot(telegram_bot_token, threaded=False)
 
 @bot.message_handler(commands=["start"])
 def start(message):
-    bot.reply_to(message, "Yo! I started")
+    username = message.from_user.username
+    account = UserAccount(username)
+    db.session.add(account)
+    db.session.commit()
+    bot.reply_to(message, account.public_key)
 
 
 @bot.message_handler(commands=["help"])

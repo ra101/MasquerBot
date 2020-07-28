@@ -12,6 +12,6 @@ def create_app():
     app.config.from_pyfile("config.py")
     db.init_app(app)
     init_routes(app)
-
+    app.app_context().push()
     db.create_all()
     return app
