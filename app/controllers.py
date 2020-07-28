@@ -2,18 +2,11 @@ import os
 
 import telegram
 from dotenv import load_dotenv
-from flask import request
 from flask_restful import Resource
 
+
 from app.models import db  # , User
-
-
-load_dotenv()
-# init Bot
-global bot
-global TOKEN
-TOKEN = os.getenv("TELEGRAM_BOT_TOKKEN")
-bot = telegram.Bot(token=TOKEN)
+from app.masquer_bot import bot, dp, update_queue, get_updates
 
 
 class HomeController(Resource):
@@ -24,7 +17,7 @@ class HomeController(Resource):
 class WebhookController(Resource):
     def post(self, webhook_url):
 
-        update = telegram.Update.de_json(request.get_json(force=True), bot)
+        update = get_updates()
         chat_id = update.message.chat.id
         msg_id = update.message.message_id
 
@@ -32,10 +25,8 @@ class WebhookController(Resource):
             temp = f.read()
 
         if webhook_url == temp:
-            print(update)
-            print(dir(update))
-            print(update.message)
-            print(dir(update.message))
+            dp.process_update(update)
+            update_queue.put(update)
 
             text = update.message.text.encode("utf-8").decode()
 
@@ -49,3 +40,5 @@ class WebhookController(Resource):
             bot.sendMessage(
                 chat_id=chat_id, text="Please Send again.", reply_to_message_id=msg_id
             )
+
+        return "OK"
