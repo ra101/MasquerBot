@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from hashlib import sha512
 
 from flask_sqlalchemy import SQLAlchemy
@@ -14,14 +14,13 @@ class UserAccount(db.Model):
     private_key = db.Column(db.Text(), unique=True, nullable=False)
     public_key = db.Column(db.Text(), unique=True, nullable=False)
     created_at = db.Column(db.DateTime())
-    updated_at = db.Column(db.DateTime())
 
     def __init__(self, username):
         self.username_hash = sha512(bytes(username, "utf-8")).hexdigest()
         eth_k = generate_eth_key()
         self.private_key = eth_k.to_hex()
         self.public_key = eth_k.public_key.to_hex()
-        self.updated_at = self.created_at = datetime.now()
+        self.created_at = datetime.now()
         del eth_k
 
 
@@ -47,3 +46,34 @@ class DecryptionCache(db.Model):
     def __init__(self, chat_id):
         self.chat_id = chat_id
         self.created_at = datetime.now()
+
+
+@db.event.listens_for(UserAccount, "before_insert")
+def delete_trigger_d_cache(mapper, connection, target):
+    delete_function()
+
+
+@db.event.listens_for(EncryptionCache, "before_insert")
+def delete_trigger_d_cache(mapper, connection, target):
+    delete_function()
+
+
+@db.event.listens_for(DecryptionCache, "before_insert")
+def delete_trigger_d_cache(mapper, connection, target):
+    delete_function()
+
+
+def delete_function():
+    try:
+        db.session.query(EncryptionCache).filter(
+            (EncryptionCache.created_at + timedelta(seconds=600)) < datetime.now()
+        ).delete()
+    except:
+        pass
+
+    try:
+        db.session.query(DecryptionCache).filter(
+            (DecryptionCache.created_at + timedelta(seconds=600)) < datetime.now()
+        ).delete()
+    except:
+        pass

@@ -33,5 +33,5 @@ def change_webhook_url():
 def on_starting(server):
     change_webhook_url()
     scheduler = BackgroundScheduler(daemon=True)
-    scheduler.add_job(func=change_webhook_url, trigger="interval", seconds=600)
+    scheduler.add_job(func=change_webhook_url, trigger="interval", seconds=21900)
     scheduler.start()

@@ -38,6 +38,15 @@ def start(message):
             db.session.add(account)
             try:
                 db.session.commit()
+                bot.send_message(
+                    message.chat.id,
+                    "Hi I'm MasquerBot. I can masque any given <text> within any given <image>.\nHow this works is, Everyone is given a public key, that public key is used to lock information, we call it public key as it can publicly disctributed. So to masque a message both sender and reciever must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.",
+                )
+                bot.send_message(
+                    message.chat.id,
+                    "Here is the list of commands\n- /help: Get these same messages again.\n- /get_key: Get your public key.\n- /encrypt: Initate encryption process.\n- /decrypt: Initate decryption process.\n- /cancel: Cancel the ongoing process.\n- /request_new_key: Create new public key.",
+                )
+                bot.send_message(message.chat.id, "Here is your public key.")
                 bot.send_message(message.chat.id, str(account.public_key))
                 break
             except:
@@ -52,6 +61,7 @@ def get_key(message):
         username_hash=sha512(bytes(username, "utf-8")).hexdigest()
     ).first()
     if account is not None:
+        bot.send_message(message.chat.id, "Here is your public key.")
         bot.send_message(message.chat.id, account.public_key)
     else:
         bot.reply_to(message, "Unable to fetch userkey.")
@@ -59,7 +69,14 @@ def get_key(message):
 
 @bot.message_handler(commands=["help", "h"])
 def help(message):
-    bot.send_message(message.chat.id, "Yo! help arrived!")
+    bot.send_message(
+        message.chat.id,
+        "Hi I'm MasquerBot. I can masque any given <text> within any given <image>.\nHow this works is, everyone is given a public key, that public key is used to lock information, we call it public key as it can publicly disctributed. So to masque a message both sender and reciever must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.",
+    )
+    bot.send_message(
+        message.chat.id,
+        "Here is the list of commands\n- /help: Get these same messages again.\n- /get_key: Get your public key.\n- /encrypt: Initate encryption process.\n- /decrypt: Initate decryption process.\n- /cancel: Cancel the ongoing process.\n- /request_new_key: Create new public key.",
+    )
 
 
 @bot.message_handler(commands=["encrypt", "e"])
@@ -70,7 +87,8 @@ def encryption_init(message):
         db.session.commit()
         bot.send_message(
             message.chat.id,
-            "Encryption process started!\nSend the message to be encrypted.",
+            "Encryption process started!\nSend the *message* to be encrypted.",
+            parse_mode="Markdown",
         )
     except:
         db.session.rollback()
@@ -85,7 +103,8 @@ def decryption_init(message):
         db.session.commit()
         bot.send_message(
             message.chat.id,
-            "Decryption process started!\nSend the image to be decrypted.",
+            "Decryption process started!\nSend the *image* _(as document)_ to be decrypted.",
+            parse_mode="Markdown",
         )
     except:
         db.session.rollback()
@@ -148,6 +167,20 @@ def request_new_key(message):
         bot.reply_to(message, "Account not found.")
 
 
+@bot.message_handler(commands=["github"])
+def help(message):
+    bot.send_message(
+        message.chat.id, "https://github.com/ra101/MasquerBot",
+    )
+
+
+@bot.message_handler(commands=["author"])
+def help(message):
+    bot.send_message(
+        message.chat.id, "https://t.me/ra_101",
+    )
+
+
 @bot.message_handler(func=lambda message: True, content_types=["text"])
 def text_handler(message):
 
@@ -159,7 +192,8 @@ def text_handler(message):
                 db.session.commit()
                 bot.send_message(
                     message.chat.id,
-                    "Message Accepted! Now send the recepient's public key.",
+                    "Message Accepted! Now send the *recepient's public key*.",
+                    parse_mode="Markdown",
                 )
             except:
                 db.session.rollback()
@@ -173,7 +207,11 @@ def text_handler(message):
             e_cache.public_key = message.text
             try:
                 db.session.commit()
-                bot.send_message(message.chat.id, "Key Accepted! Now send the image.")
+                bot.send_message(
+                    message.chat.id,
+                    "Key Accepted! Now send the *image* _(as document)_.",
+                    parse_mode="Markdown",
+                )
             except:
                 db.session.rollback()
                 bot.reply_to(
@@ -260,7 +298,16 @@ def photo_handler(message):
 
 
 @bot.message_handler(
-    func=lambda message: message.content_type not in ["text", "photo", "document"]
+    func=lambda message: True,
+    content_types=[
+        "audio",
+        "sticker",
+        "video",
+        "video_note",
+        "voice",
+        "location",
+        "contact",
+    ],
 )
 def unsupported_content_type_handler(message):
     bot.reply_to(message, "File Type is not supported.")
