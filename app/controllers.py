@@ -28,7 +28,7 @@ class WebhookController(Resource):
         chat_id = update.message.chat.id
         msg_id = update.message.message_id
 
-        if webhook_url == os.getenv("WEBHOOK_URL"):
+        if webhook_url == webhook_url_global:
 
             print(update)
             print(dir(update))

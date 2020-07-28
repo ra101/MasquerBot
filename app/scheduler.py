@@ -20,9 +20,9 @@ def init_scheduler():
 
 def change_webhook_url():
 
-    os.environ["WEBHOOK_URL"] = sha512(bytes(str(datetime.now()), "utf-8")).hexdigest()
+    webhook_url_global = sha512(bytes(str(datetime.now()), "utf-8")).hexdigest()
     request(
         "get",
         "https://api.telegram.org/bot%s/setWebhook?url=https://masquerbot.herokuapp.com/webhook/%s"
-        % (os.getenv("TELEGRAM_BOT_TOKKEN"), os.getenv("WEBHOOK_URL")),
+        % (os.getenv("TELEGRAM_BOT_TOKKEN"), webhook_url_global),
     )
