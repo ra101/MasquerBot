@@ -5,18 +5,30 @@ import os
 
 from telebot.types import Update
 from flask_restful import Resource
-from flask import request
+from flask import request, redirect
+
 
 from app.masquer_bot import bot
 
 
 class HomeController(Resource):
     """
-    Unnecessary routes, use for my pinger project [https://github.com/ra101/pinger]
+    Unnecessary route, used for my pinger project [https://github.com/ra101/pinger]
     """
 
     def get(self):
         return "Hello World"
+
+
+class FaviconController(Resource):
+    """
+    Unnecessary route, added without any reason.
+    """
+
+    def get(self):
+        return redirect(
+            "https://raw.githubusercontent.com/ra101/MasquerBot/core/assets/favicon.ico"
+        )
 
 
 class WebhookController(Resource):
