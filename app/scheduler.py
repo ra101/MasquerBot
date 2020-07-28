@@ -23,12 +23,8 @@ def change_webhook_url():
     webhook_url_global = sha512(bytes(str(datetime.now()), "utf-8")).hexdigest()
     request(
         "get",
-        "https://api.telegram.org/bot%s/setWebhook?url=%s/%s"
-        % (
-            os.getenv("TELEGRAM_BOT_TOKKEN"),
-            os.getenv("WEBHOOK_URL"),
-            webhook_url_global,
-        ),
+        "https://api.telegram.org/bot%s/setWebhook?url=%s/%s/webhook"
+        % (os.getenv("TELEGRAM_BOT_TOKKEN"), os.getenv("DOMAIN"), webhook_url_global,),
     )
 
     with open("webhook_url", "w") as f:
