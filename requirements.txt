@@ -30,9 +30,9 @@ pep517==0.8.2
 progress==1.5
 pycparser==2.20
 pyparsing==2.4.6
+pyTelegramBotAPI==3.7.2
 python-dateutil==2.8.1
 python-dotenv==0.14.0
-python-telegram-bot==12.8
 pytoml==0.1.21
 pytz==2020.1
 requests==2.22.0

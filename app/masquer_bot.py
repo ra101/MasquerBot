@@ -1,26 +1,28 @@
 import os
-from queue import Queue
 
-import telegram
-from telegram.ext import Dispatcher
+import telebot
 from dotenv import load_dotenv
-from flask import request
 
 
 load_dotenv()
 
 # init Bot
 
-global bot
-global TOKEN
 telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKKEN")
-bot = telegram.Bot(token=telegram_bot_token)
+
+bot = telebot.TeleBot(telegram_bot_token, threaded=False)
 
 
-update_queue = Queue()
+@bot.message_handler(commands=["start"])
+def start(message):
+    bot.reply_to(message, "Yo! I started")
 
-dp = Dispatcher(bot, update_queue)
+
+@bot.message_handler(commands=["help"])
+def start(message):
+    bot.reply_to(message, "Yo! help arrived!")
 
 
-def get_updates():
-    return telegram.Update.de_json(request.get_json(force=True), bot)
+@bot.message_handler(func=lambda message: True, content_types=["text"])
+def echo_message(message):
+    bot.reply_to(message, message.text)
