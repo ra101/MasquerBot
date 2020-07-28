@@ -56,7 +56,7 @@ def start(message):
                 )
                 bot.send_message(
                     message.chat.id,
-                    "Here is the list of commands\n- /help: Get these same messages again.\n- /get_key: Get your public key.\n- /encrypt: Initate encryption process.\n- /decrypt: Initate decryption process.\n- /cancel: Cancel the ongoing process.\n- /request_new_key: Create new public key.",
+                    "Here is the list of commands\n• /help: Get these same messages again.\n• /get_key: Get your public key.\n• /encrypt: Initate encryption process.\n• /decrypt: Initate decryption process.\n• /cancel: Cancel the ongoing process.\n• /request_new_key: Create new public key.",
                 )
                 bot.send_message(message.chat.id, "Here is your public key.")
                 bot.send_message(message.chat.id, str(account.public_key))
@@ -89,7 +89,7 @@ def help(message):
     )
     bot.send_message(
         message.chat.id,
-        "Here is the list of commands\n- /help: Get these same messages again.\n- /get_key: Get your public key.\n- /encrypt: Initate encryption process.\n- /decrypt: Initate decryption process.\n- /cancel: Cancel the ongoing process.\n- /request_new_key: Create new public key.",
+        "Here is the list of commands\n• /help: Get these same messages again.\n• /get_key: Get your public key.\n• /encrypt: Initate encryption process.\n• /decrypt: Initate decryption process.\n• /cancel: Cancel the ongoing process.\n• /request_new_key: Create new public key.",
     )
 
 
@@ -209,6 +209,15 @@ def dev(message):
 def home(message):
     bot.send_message(
         message.chat.id, "https://masquerbot.herokuapp.com/home.html",
+    )
+
+
+@bot.message_handler(commands=["icon"])
+def home(message):
+    bot.send_message(
+        message.chat.id,
+        "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom every mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
+        parse_mode="Markdown",
     )
 
 
