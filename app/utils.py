@@ -1,8 +1,8 @@
-"""
+'''
 ./app/utils.py
 
-This code is modified version of code in from utils.py from ecies. 
-"""
+This code is modified version of code in from utils.py from ecies.
+'''
 import codecs
 
 

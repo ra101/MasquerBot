@@ -1,8 +1,6 @@
-"""
+'''
 ./app/controllers.py
-"""
-import os
-
+'''
 from telebot.types import Update
 from flask_restful import Resource
 from flask import request, redirect
@@ -12,18 +10,18 @@ from app.masquer_bot import bot
 
 
 class HomeController(Resource):
-    """
+    '''
     Unnecessary route, used for my pinger project [https://github.com/ra101/pinger]
-    """
+    '''
 
     def get(self):
         return "Hello World"
 
 
 class FaviconController(Resource):
-    """
+    '''
     Unnecessary route, added without any reason.
-    """
+    '''
 
     def get(self):
         return redirect(

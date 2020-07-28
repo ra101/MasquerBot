@@ -1,10 +1,9 @@
-"""
+'''
 ./app/masquer_bot.py
 
 Brain of the Bot.
-"""
+'''
 import os
-import json
 from io import BytesIO
 from re import fullmatch
 from hashlib import sha512
@@ -41,25 +40,17 @@ def start(message):
         )
     else:
         while True:
-            """
-            Infiteloop as key pairs are genrated randomly, there is absolutely no way of 
+            '''
+            Infiteloop as key pairs are genrated randomly, there is absolutely no way of
             knowing that same value is reapted or not. so db.seesion.commit() will return error if
-            a exact same key is returned, due to unique contraint in UserAccount model. 
-            """
+            a exact same key is returned, due to unique contraint in UserAccount model.
+            '''
             account = UserAccount(username)
             db.session.add(account)
             try:
                 db.session.commit()
-                bot.send_message(
-                    message.chat.id,
-                    "Hi I'm MasquerBot. I can masque any given <text> within any given <image>.\nHow this works is, Everyone is given a public key, that public key is used to lock information, we call it public key as it can publicly disctributed. So to masque a message both sender and reciever must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.",
-                )
-                bot.send_message(
-                    message.chat.id,
-                    "Here is the list of commands\n• /help: Get these same messages again.\n• /get_key: Get your public key.\n• /encrypt: Initate encryption process.\n• /decrypt: Initate decryption process.\n• /cancel: Cancel the ongoing process.\n• /request_new_key: Create new public key.",
-                )
-                bot.send_message(message.chat.id, "Here is your public key.")
-                bot.send_message(message.chat.id, str(account.public_key))
+                help(message)
+                get_key(message)
                 break
             except:
                 db.session.rollback()
@@ -85,7 +76,7 @@ def get_key(message):
 def help(message):
     bot.send_message(
         message.chat.id,
-        "Hi I'm MasquerBot. I can masque any given <text> within any given <image>.\nHow this works is, everyone is given a public key, that public key is used to lock information, we call it public key as it can publicly disctributed. So to masque a message both sender and reciever must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.",
+        "Hi I'm MasquerBot. I can masque any given <text> within any given <image>.\nHow this works is, everyone is given a public key, that public key is used to lock information, we call it public key as it can be publicly disctributed. So to masque a message, both sender and reciever must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.",
     )
     bot.send_message(
         message.chat.id,
@@ -111,9 +102,9 @@ def encryption_init(message):
 
 @bot.message_handler(commands=["decrypt", "d"])
 def decryption_init(message):
-    """
+    '''
     Once added to Database, handling is done by document_handler 
-    """
+    '''
     cancel(message, True)
     db.session.add(DecryptionCache(message.chat.id))
     try:
@@ -130,11 +121,11 @@ def decryption_init(message):
 
 @bot.message_handler(commands=["cancel", "c"])
 def cancel(message, in_call=False):
-    """
+    '''
     in_call refers to function if called with anyother function rather than command handling
     Since we called cancel function within discryption and encrytion, so there
     is no way both will run in parallel. 
-    """
+    '''
     e_cache = EncryptionCache.query.filter_by(chat_id=message.chat.id).first()
     d_cache = DecryptionCache.query.filter_by(chat_id=message.chat.id).first()
 
@@ -213,7 +204,7 @@ def home(message):
 
 
 @bot.message_handler(commands=["icon"])
-def home(message):
+def icon(message):
     bot.send_message(
         message.chat.id,
         "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom every mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
@@ -226,10 +217,10 @@ def home(message):
 
 @bot.message_handler(func=lambda message: True, content_types=["text"])
 def text_handler(message):
-    """
+    '''
     This function, handles message_for_encrytion, public_key and any random text.
     it checks in with EncryptionCache and decide on basis of result what to send back.
-    """
+    '''
     e_cache = EncryptionCache.query.filter_by(chat_id=message.chat.id).first()
     if e_cache is not None:
         if e_cache.message is None:
@@ -272,11 +263,11 @@ def text_handler(message):
 
 @bot.message_handler(func=lambda message: True, content_types=["document"])
 def document_handler(message):
-    """
+    '''
     This function downloads images, and see what to do with it,
     encrypt it, decrypt it or discard it.
     it check in with EncryptionCache and DecryptionCache and based on result decides what to do.
-    """
+    '''
 
     bot.send_message(message.chat.id, "This might take few seconds...")
     file_info = bot.get_file(message.document.file_id)

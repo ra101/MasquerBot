@@ -1,6 +1,6 @@
-"""
+'''
 ./app/models.py
-"""
+'''
 from datetime import datetime, timedelta
 from hashlib import sha512
 
@@ -25,11 +25,11 @@ class UserAccount(db.Model):
         del eth_k
 
 
-"""
-One might argue Cache Tables are not required and these values can be stored in variables, but 
-since there are workers and we dont know which worker will hit when, so there is a need for 
+'''
+One might argue Cache Tables are not required and these values can be stored in variables, but
+since there are workers and we dont know which worker will hit when, so there is a need for
 constant Database.
-"""
+'''
 
 
 class EncryptionCache(db.Model):
@@ -58,25 +58,25 @@ class DecryptionCache(db.Model):
         self.created_at = datetime.now()
 
 
-"""
+'''
 These triggers are for saving memory,
-One might suggest of adding scheduler for that, we have added schedular at start 
+One might suggest of adding scheduler for that, we have added schedular at start
 before starting flask app. so DB could not have been accesible there.
-"""
+'''
 
 
 @db.event.listens_for(UserAccount, "before_insert")
-def delete_trigger_d_cache(mapper, connection, target):
+def delete_trigger_cache(mapper, connection, target):
     delete_function()
 
 
 @db.event.listens_for(EncryptionCache, "before_insert")
-def delete_trigger_d_cache(mapper, connection, target):
+def delete_trigger_cache(mapper, connection, target):
     delete_function()
 
 
 @db.event.listens_for(DecryptionCache, "before_insert")
-def delete_trigger_d_cache(mapper, connection, target):
+def delete_trigger_cache(mapper, connection, target):
     delete_function()
 
 
