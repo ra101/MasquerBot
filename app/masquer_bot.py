@@ -3,6 +3,8 @@ import os
 import telebot
 from dotenv import load_dotenv
 
+from app.utils import decode_hex
+from app.models import db, UserAccount
 
 load_dotenv()
 
