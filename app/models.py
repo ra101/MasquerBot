@@ -35,3 +35,15 @@ class EncryptionCache(db.Model):
     def __init__(self, chat_id):
         self.chat_id = chat_id
         self.created_at = datetime.now()
+        self.message = None
+        self.public_key = None
+
+
+class DecryptionCache(db.Model):
+    __tablename__ = "decryption_cache"
+    chat_id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime())
+
+    def __init__(self, chat_id):
+        self.chat_id = chat_id
+        self.created_at = datetime.now()
