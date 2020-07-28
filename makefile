@@ -1,2 +1,2 @@
 run:
-	gunicorn wsgi:application
+	gunicorn wsgi:application --preload
