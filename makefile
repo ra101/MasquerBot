@@ -1,2 +1,2 @@
 run:
-	gunicorn wsgi:application --preload
+	gunicorn wsgi:application -c scheduler.py

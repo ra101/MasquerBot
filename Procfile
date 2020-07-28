@@ -1,1 +1,1 @@
-web: gunicorn wsgi:application --preload
+web: gunicorn wsgi:application -c scheduler.py

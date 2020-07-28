@@ -4,18 +4,18 @@ from hashlib import sha512
 from requests import request
 
 from dotenv import load_dotenv
-from flask_apscheduler import APScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 load_dotenv()
 
 
 def init_scheduler():
-    scheduler = APScheduler()
+    scheduler = BackgroundScheduler()
     scheduler.add_job(
-        func=change_webhook_url, trigger="interval", seconds=10800, id="12345"
+        func=change_webhook_url, trigger="interval", seconds=10, id="12345"
     )
-    scheduler.start()
+    return scheduler
 
 
 def change_webhook_url():
@@ -26,6 +26,12 @@ def change_webhook_url():
         "https://api.telegram.org/bot%s/setWebhook?url=%s/%s/webhook"
         % (os.getenv("TELEGRAM_BOT_TOKKEN"), os.getenv("DOMAIN"), webhook_url_global,),
     )
-
     with open("webhook_url", "w") as f:
         f.write(webhook_url_global)
+
+
+def on_starting(server):
+    change_webhook_url()
+    scheduler = BackgroundScheduler(daemon=True)
+    scheduler.add_job(func=change_webhook_url, trigger="interval", seconds=600)
+    scheduler.start()
