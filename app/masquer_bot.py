@@ -1,3 +1,8 @@
+"""
+./app/masquer_bot.py
+
+Brain of the Bot.
+"""
 import os
 import json
 from io import BytesIO
@@ -24,9 +29,11 @@ bot = telebot.TeleBot(telegram_bot_token, threaded=False)
 @bot.message_handler(commands=["start", "s"])
 def start(message):
     username = message.from_user.username
+
     account = UserAccount.query.filter_by(
         username_hash=sha512(bytes(username, "utf-8")).hexdigest()
     ).first()
+
     if account is not None:
         bot.reply_to(
             message,
@@ -34,6 +41,11 @@ def start(message):
         )
     else:
         while True:
+            """
+            Infiteloop as key pairs are genrated randomly, there is absolutely no way of 
+            knowing that same value is reapted or not. so db.seesion.commit() will return error if
+            a exact same key is returned, due to unique contraint in UserAccount model. 
+            """
             account = UserAccount(username)
             db.session.add(account)
             try:
@@ -57,9 +69,11 @@ def start(message):
 @bot.message_handler(commands=["get_key", "gk"])
 def get_key(message):
     username = message.from_user.username
+
     account = UserAccount.query.filter_by(
         username_hash=sha512(bytes(username, "utf-8")).hexdigest()
     ).first()
+
     if account is not None:
         bot.send_message(message.chat.id, "Here is your public key.")
         bot.send_message(message.chat.id, account.public_key)
@@ -97,6 +111,9 @@ def encryption_init(message):
 
 @bot.message_handler(commands=["decrypt", "d"])
 def decryption_init(message):
+    """
+    Once added to Database, handling is done by document_handler 
+    """
     cancel(message, True)
     db.session.add(DecryptionCache(message.chat.id))
     try:
@@ -113,7 +130,11 @@ def decryption_init(message):
 
 @bot.message_handler(commands=["cancel", "c"])
 def cancel(message, in_call=False):
-
+    """
+    in_call refers to function if called with anyother function rather than command handling
+    Since we called cancel function within discryption and encrytion, so there
+    is no way both will run in parallel. 
+    """
     e_cache = EncryptionCache.query.filter_by(chat_id=message.chat.id).first()
     d_cache = DecryptionCache.query.filter_by(chat_id=message.chat.id).first()
 
@@ -141,6 +162,7 @@ def cancel(message, in_call=False):
 
 @bot.message_handler(commands=["request_new_key", "rnk"])
 def request_new_key(message):
+    # simple delete account and create new.
     username = message.from_user.username
     account = UserAccount.query.filter_by(
         username_hash=sha512(bytes(username, "utf-8")).hexdigest()
@@ -151,6 +173,7 @@ def request_new_key(message):
             db.session.delete(account)
             db.session.commit()
             while True:
+                # Check start function for infinit loop informaton.
                 account = UserAccount(username)
                 db.session.add(account)
                 try:
@@ -167,23 +190,37 @@ def request_new_key(message):
         bot.reply_to(message, "Account not found.")
 
 
+######## Some one liners.
 @bot.message_handler(commands=["github"])
-def help(message):
+def github(message):
     bot.send_message(
         message.chat.id, "https://github.com/ra101/MasquerBot",
     )
 
 
-@bot.message_handler(commands=["author"])
-def help(message):
+@bot.message_handler(commands=["dev"])
+def dev(message):
     bot.send_message(
         message.chat.id, "https://t.me/ra_101",
     )
 
 
+@bot.message_handler(commands=["home"])
+def home(message):
+    bot.send_message(
+        message.chat.id, "https://masquerbot.herokuapp.com/home.html",
+    )
+
+
+########
+
+
 @bot.message_handler(func=lambda message: True, content_types=["text"])
 def text_handler(message):
-
+    """
+    This function, handles message_for_encrytion, public_key and any random text.
+    it checks in with EncryptionCache and decide on basis of result what to send back.
+    """
     e_cache = EncryptionCache.query.filter_by(chat_id=message.chat.id).first()
     if e_cache is not None:
         if e_cache.message is None:
@@ -201,6 +238,7 @@ def text_handler(message):
                     message, "Operation failed to start due to internal error."
                 )
 
+        # RegEx match for public key.
         elif (fullmatch("[0][xX][0-9a-fA-F]+", message.text) is not None) and (
             len(message.text) == 130
         ):
@@ -225,6 +263,12 @@ def text_handler(message):
 
 @bot.message_handler(func=lambda message: True, content_types=["document"])
 def document_handler(message):
+    """
+    This function downloads images, and see what to do with it,
+    encrypt it, decrypt it or discard it.
+    it check in with EncryptionCache and DecryptionCache and based on result decides what to do.
+    """
+
     bot.send_message(message.chat.id, "This might take few seconds...")
     file_info = bot.get_file(message.document.file_id)
     response = requests_get(
@@ -241,16 +285,23 @@ def document_handler(message):
         db.session.delete(e_cache)
         try:
             db.session.commit()
+
+            # Encryption
             encrypted_text = encrypt(
                 e_cache.public_key, bytes(e_cache.message, "utf-8")
             ).hex()
+
+            # Steganography
             secret_img = hide(
                 input_image=image_bytes, message=encrypted_text, auto_convert_rgb=True
             )
+
+            # File Creation
             return_img = BytesIO()
-            secret_img.save(return_img, format="PNG")
+            secret_img.save(return_img, format="PNG")  # only PNG works.
             return_img.name = file_info.file_path.split("/")[-1]
             return_img.seek(0)
+
             bot.send_document(message.chat.id, return_img)
             bot.send_message(message.chat.id, "Image encrypted!")
 
@@ -262,7 +313,10 @@ def document_handler(message):
         db.session.delete(d_cache)
         try:
             db.session.commit()
+
+            # Reverse Steganography
             encrypted_hex = reveal(input_image=image_bytes)
+
             if encrypted_hex is not None:
                 encrypted_text = decode_hex(encrypted_hex)
 
@@ -275,6 +329,7 @@ def document_handler(message):
                     .private_key
                 )
 
+                # Decryption
                 decrypted_text = decrypt(private_key, encrypted_text)
 
                 bot.reply_to(message, decrypted_text)
