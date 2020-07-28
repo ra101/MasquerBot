@@ -26,3 +26,6 @@ def change_webhook_url():
         "https://api.telegram.org/bot%s/setWebhook?url=https://masquerbot.herokuapp.com/webhook/%s"
         % (os.getenv("TELEGRAM_BOT_TOKKEN"), webhook_url_global),
     )
+
+    with open("webhook_url", "w") as f:
+        f.write(webhook_url_global)

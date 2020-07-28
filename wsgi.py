@@ -1,6 +1,6 @@
 from app import create_app
-from app.scheduler import init_scheduler
+from app.scheduler import init_scheduler, change_webhook_url
 
-global webhook_url_global
+change_webhook_url()
 init_scheduler()
 application = create_app()
