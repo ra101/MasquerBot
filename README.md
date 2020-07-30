@@ -14,6 +14,10 @@
 
 This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixel manipulation *(steganography)* to masque any given `<text>` within any given `<image>`.
 
+- _If you truly have a paranoia about security. A VPN is recommended during [/encrypt](#desktop_computer-available-commands) and [/decrypt](#desktop_computer-available-commands)._
+
+- _PNGs are recommended better performance._
+
 <br>
 
 **Video Tutorial: [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)**
@@ -30,7 +34,7 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
   - [Setup](#floppy_disk-setup)
   - [Run on localhost](#computer-run-on-localhost)
   - [Run on Server](#cloud-run-on-server)
-- [Breakdown of `requirements.txt`](#page_with_curl-breakdown-of-requirements.txt])
+- [Breakdown of `requirements.txt`](#page_with_curl-breakdown-of-requirements.txt)
 - [File Structure](#open_file_folder-file-structure)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 - [License](#scroll-license)
@@ -71,7 +75,7 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 - `unique contraint` prevents duplicacy. 
 - Message is first `encrypted` then `steganography` is performed.
 - `ECDSA` is used. which means less time on computation and powerful encryption.
-- `Dynamic URL`: URL changes every `6 hours and 5 minutes`, with `130 char long`, therefore making it impossible to send through any means other then telegram since URL remains unknown to everyone except telegram.
+- `Dynamic URL`: URL changes every `6 hours and 5 minutes`, with `130 char long`, therefore making it impossible to send through any means other than telegram since URL remains unknown to everyone except telegram.
 - `Gunicorn` creates multiple workers hence supporting parallel processing.
 - Process Management: All process are cancelled before starting a new one. `Triggers` are added to delete any process with timestamp older than 10 minutes.
 - Few cool `Easter Eggs` are there as well.
