@@ -28,48 +28,55 @@ bot = telebot.TeleBot(telegram_bot_token, threaded=False)
 @bot.message_handler(commands=["start", "s"])
 def start(message):
     username = message.from_user.username
+    
+    if username is not None:
+        account = UserAccount.query.filter_by(
+            username_hash=sha512(bytes(username, "utf-8")).hexdigest()
+        ).first()
 
-    account = UserAccount.query.filter_by(
-        username_hash=sha512(bytes(username, "utf-8")).hexdigest()
-    ).first()
-
-    if account is not None:
-        bot.reply_to(
-            message,
-            "Account is already established.\n/get_key or /gk to get your key.",
-        )
+        if account is not None:
+            bot.reply_to(
+                message,
+                "Account is already established.\n/get_key or /gk to get your key.",
+            )
+        else:
+            while True:
+                '''
+                Infiteloop as key pairs are genrated randomly, there is absolutely no way of
+                knowing that same value is reapted or not. so db.seesion.commit() will return error if
+                a exact same key is returned, due to unique contraint in UserAccount model.
+                '''
+                account = UserAccount(username)
+                db.session.add(account)
+                try:
+                    db.session.commit()
+                    help(message)
+                    get_key(message)
+                    break
+                except:
+                    db.session.rollback()
+                    pass
     else:
-        while True:
-            '''
-            Infiteloop as key pairs are genrated randomly, there is absolutely no way of
-            knowing that same value is reapted or not. so db.seesion.commit() will return error if
-            a exact same key is returned, due to unique contraint in UserAccount model.
-            '''
-            account = UserAccount(username)
-            db.session.add(account)
-            try:
-                db.session.commit()
-                help(message)
-                get_key(message)
-                break
-            except:
-                db.session.rollback()
-                pass
+        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
 
 
 @bot.message_handler(commands=["get_key", "gk"])
 def get_key(message):
     username = message.from_user.username
 
-    account = UserAccount.query.filter_by(
-        username_hash=sha512(bytes(username, "utf-8")).hexdigest()
-    ).first()
+    if username is not None:        
+        account = UserAccount.query.filter_by(
+            username_hash= sha512(bytes(username, "utf-8")).hexdigest()
+        ).first()
 
-    if account is not None:
-        bot.send_message(message.chat.id, "Here is your public key.")
-        bot.send_message(message.chat.id, account.public_key)
+        if account is not None:
+            bot.send_message(message.chat.id, "Here is your public key.")
+            bot.send_message(message.chat.id, account.public_key)
+        else:
+            bot.reply_to(message, "Unable to fetch userkey.")
     else:
-        bot.reply_to(message, "Unable to fetch userkey.")
+        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
+
 
 
 @bot.message_handler(commands=["help", "h"])
