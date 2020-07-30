@@ -8,11 +8,15 @@
 
 ## https://t.me/MasquerBot
 
- ![Made with Python](https://img.shields.io/badge/Made%20with-Python-feab00?style=for-the-badge&logo=python)[![Stars](https://img.shields.io/github/stars/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/stargazers)[![Forks](https://img.shields.io/github/forks/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/network/members) [![Open Issues](https://img.shields.io/github/issues/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/issues)![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%99%A5-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi) 
+ ![Made with Python](https://img.shields.io/badge/Made%20with-Python-feab00?style=for-the-badge&logo=python)[![Stars](https://img.shields.io/github/stars/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/stargazers)[![Forks](https://img.shields.io/github/forks/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/network/members) [![Open Issues](https://img.shields.io/github/issues/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/issues)![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%98%95-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A1-critical?style=for-the-badge&logo=github) 
 
 </div>
 
 This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixel manipulation *(steganography)* to masque any given `<text>` within any given `<image>`.
+
+<br>
+
+**Video Tutorial: [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)**
 
 <br><br>
 
@@ -47,6 +51,7 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 ### :desktop_computer: Available Commands:
 
 - [**/start**](#desktop_computer-available-commands):  It starts and calls **/help** and **/get_key**
+- [**/lbry**](#desktop_computer-available-commands) or [**/youtube**](#desktop_computer-available-commands): Return a link of video tutorial. 
 - [**/help**](#desktop_computer-available-commands):  Returns the `Workflow` and `Available Commands` .
 - [**/get_key**](#desktop_computer-available-commands):  Returns your `public key`.
 - [**/encrypt**](#desktop_computer-available-commands):  Returns the `encoded image`.

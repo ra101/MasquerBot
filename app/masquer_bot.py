@@ -80,7 +80,7 @@ def help(message):
     )
     bot.send_message(
         message.chat.id,
-        "Here is the list of commands\n• /help: Get these same messages again.\n• /get_key: Get your public key.\n• /encrypt: Initate encryption process.\n• /decrypt: Initate decryption process.\n• /cancel: Cancel the ongoing process.\n• /request_new_key: Create new public key.",
+        "Here is the list of commands\n• /help: Get these same messages again.\n• /get_key: Get your public key.\n• /encrypt: Initate encryption process.\n• /decrypt: Initate decryption process.\n• /cancel: Cancel the ongoing process.\n• /request_new_key: Create new public key.\n\n• /lbry or /youtube for video tutorial.",
     )
 
 
@@ -182,6 +182,20 @@ def request_new_key(message):
 
 
 ######## Some one liners.
+@bot.message_handler(commands=["lbry"])
+def lbry(message):
+    bot.send_message(
+        message.chat.id, "https://lbry.tv/@ra101/MasquerBot",
+    )
+
+
+@bot.message_handler(commands=["youtube"])
+def youtube(message):
+    bot.send_message(
+        message.chat.id, "https://www.youtube.com/watch?v=yH3SVmCZD7Q",
+    )
+
+
 @bot.message_handler(commands=["github"])
 def github(message):
     bot.send_message(
