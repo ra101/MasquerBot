@@ -34,8 +34,9 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
   - [Setup](#floppy_disk-setup)
   - [Run on localhost](#computer-run-on-localhost)
   - [Run on Server](#cloud-run-on-server)
-- [Breakdown of `requirements.txt`](#page_with_curl-breakdown-of-requirements.txt)
+- [Breakdown of `requirements.txt`](#page_with_curl-breakdown-of-requirementstxt)
 - [File Structure](#open_file_folder-file-structure)
+- [Donations](#gift-donations)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 - [License](#scroll-license)
 - [Contact Me](#call_me_hand-contact-me)
@@ -262,6 +263,12 @@ Following are the steps to run on server.
 ```
 
 <br><br>
+
+## :gift: Donations
+
+<a href="https://www.buymeacoffee.com/ra101"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" title="If this project is helpful to you and love my work and feel like showing love/appreciation, would you like to buy me a coffee?" ></a>
+
+<br>
 
 ## :star2: Credit/Acknowledgment
 
