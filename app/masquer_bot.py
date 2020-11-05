@@ -236,7 +236,7 @@ def home(message):
 def icon(message):
     bot.send_message(
         message.chat.id,
-        "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom every mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
+        "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom everyone mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
         parse_mode="Markdown",
     )
 
