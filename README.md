@@ -1,14 +1,13 @@
+
 <div align="center">
-
-# MasquerBot
-
+<h1> MasquerBot </h1>
 <p align="center">
   <img src="./assets/logo_circle.png" width="250px" height="250px">
 </p>
 
-## https://t.me/MasquerBot
+ <a href="https://t.me/MasquerBot" alt="https://t.me/MasquerBot" ><h2> https://t.me/MasquerBot </h2> </a> 
 
- ![Made with Python](https://img.shields.io/badge/Made%20with-Python-feab00?style=for-the-badge&logo=python)[![Stars](https://img.shields.io/github/stars/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/stargazers)[![Forks](https://img.shields.io/github/forks/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/network/members) [![Open Issues](https://img.shields.io/github/issues/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/issues)![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%98%95-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A1-critical?style=for-the-badge&logo=github) 
+<img src="https://img.shields.io/badge/Made%20with-Python-feab00?style=for-the-badge&amp;logo=python" alt="Made with Python"><a href="https://github.com/ra101/MasquerBot/stargazers"><img src="https://img.shields.io/github/stars/ra101/MasquerBot?style=for-the-badge" alt="Stars"></a><a href="https://github.com/ra101/MasquerBot/network/members"><img src="https://img.shields.io/github/forks/ra101/MasquerBot?style=for-the-badge" alt="Forks"></a> <a href="https://github.com/ra101/MasquerBot/issues"><img src="https://img.shields.io/github/issues/ra101/MasquerBot?style=for-the-badge" alt="Open Issues"></a><img src="https://img.shields.io/badge/Open%20Source-%E2%98%95-red?style=for-the-badge&amp;logo=open-source-initiative" alt="Open Source Love">  <img src="https://img.shields.io/badge/Built%20With-%E2%99%A1-critical?style=for-the-badge&amp;logo=github" alt="Built with Love">
 
 </div>
 
@@ -20,31 +19,34 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
 
 <br>
 
-**Video Tutorial: [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)**
+**Video Tutorial:** [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)
+
 
 <br><br>
 
-##  :card_index_dividers: Index
+##  🗂Index
 
-- [About](#briefcase-about)
-  - [Workflow](#chart_with_upwards_trend-workflow)
-  - [Available Commands](#desktop_computer-available-commands)
-  - [Features](#zap-features)
-- [Development](#gear-development)
-  - [Setup](#floppy_disk-setup)
-  - [Run on localhost](#computer-run-on-localhost)
-  - [Run on Server](#cloud-run-on-server)
-- [Breakdown of `requirements.txt`](#page_with_curl-breakdown-of-requirements.txt)
-- [File Structure](#open_file_folder-file-structure)
-- [Credit/Acknowledgment](#star2-creditacknowledgment)
-- [License](#scroll-license)
-- [Contact Me](#call_me_hand-contact-me)
+- [About](#about)
+  - [Workflow](#workflow)
+  - [Available Commands](#available-commands)
+  - [Features](#features)
+- [Development](#development)
+  - [Setup](#setup)
+  - [Run on localhost](#localhost)
+  - [Run on Server](#server)
+- [Breakdown of `requirements.txt`](#breakdown-of-requirementstxt)
+- [File Structure](#file-structure)
+- [Donations](#donations)
+- [Credit/Acknowledgment](#creditacknowledgment)
+- [License](#license)
+- [Contact Me](#contact-me)
 
 <br><br>
 
-## :briefcase: About
 
-### :chart_with_upwards_trend: Workflow
+## 💼About
+
+### 📈Workflow
 
 How this works is, everyone is given a public key, that public key is used to lock information, we call it public key as it can be publicly distributed. 
 
@@ -52,7 +54,7 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 
 <br>
 
-### :desktop_computer: Available Commands:
+### 🖥Available Commands:
 
 - [**/start**](#desktop_computer-available-commands):  It starts and calls **/help** and **/get_key**
 - [**/lbry**](#desktop_computer-available-commands) or [**/youtube**](#desktop_computer-available-commands): Return a link of video tutorial. 
@@ -69,7 +71,7 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 
 <br>
 
-### :zap: Features:
+### ⚡Features:
 
 - Saves `Hashes` instead of username.
 - `unique contraint` prevents duplicacy. 
@@ -84,9 +86,9 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 
 <br>
 
-## :gear: Development
+## ⚙Development
 
-### :floppy_disk: Setup
+### 💾Setup
 
 The following are the bare necessities for this project.
 
@@ -119,7 +121,7 @@ $ pip install -r requirements.txt
 
 <br>
 
-### :computer: Run on localhost
+### 💻Run on localhost
 
 To run the project locally download and install
 
@@ -195,7 +197,7 @@ $ gunicorn wsgi:application -c scheduler.py
 
 <br>
 
-###  :cloud: Run on Server
+###  ☁Run on Server
 
 Following are the steps to run on server.
 
@@ -203,9 +205,11 @@ Following are the steps to run on server.
 
 - If you can't host .env like in case of `heroku`, then you need to export each variable into hosting providers environment.
 
+
 <br><br>
 
-## :page_with_curl: Breakdown of `requirements.txt`
+
+## 📃Breakdown of `requirements.txt`
 
 | Dependency       | Usage                                                        |
 | ---------------- | ------------------------------------------------------------ |
@@ -223,7 +227,8 @@ Following are the steps to run on server.
 <br><br>
 
 
-## :open_file_folder: File Structure
+
+## 📂File Structure
 
 #### Below is the current file structure.
 
@@ -263,18 +268,26 @@ Following are the steps to run on server.
 
 <br><br>
 
-## :star2: Credit/Acknowledgment
+
+
+## 🎁Donations
+
+<a href="https://www.buymeacoffee.com/ra101"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" title="If this project is helpful to you and love my work and feel like showing love/appreciation, would you like to buy me a coffee?" ></a>
+
+<br>
+
+## 🌟Credit/Acknowledgment
 
 [![Contributors](https://img.shields.io/github/contributors/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/graphs/contributors)
 
 <br>
 
-## :scroll: License
+## 📜License
 
 [![License](https://img.shields.io/github/license/ra101/MasquerBot?style=for-the-badge)](https://github.com/ra101/MasquerBot/blob/core/LICENSE)
 
 <br>
 
-## :call_me_hand: Contact Me
+## 🤙Contact Me
 
 [![Protonmail](https://img.shields.io/badge/Protonmail-Email-ab44fe?style=for-the-badge&logo=protonmail)](mailto://agarwal.parth.101@protonmail.com) [![Telegram](https://img.shields.io/badge/Telegram-Chat-informational?style=for-the-badge&logo=telegram)](https://telegram.me/ra_101)
