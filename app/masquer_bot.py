@@ -28,48 +28,55 @@ bot = telebot.TeleBot(telegram_bot_token, threaded=False)
 @bot.message_handler(commands=["start", "s"])
 def start(message):
     username = message.from_user.username
+    
+    if username is not None:
+        account = UserAccount.query.filter_by(
+            username_hash=sha512(bytes(username, "utf-8")).hexdigest()
+        ).first()
 
-    account = UserAccount.query.filter_by(
-        username_hash=sha512(bytes(username, "utf-8")).hexdigest()
-    ).first()
-
-    if account is not None:
-        bot.reply_to(
-            message,
-            "Account is already established.\n/get_key or /gk to get your key.",
-        )
+        if account is not None:
+            bot.reply_to(
+                message,
+                "Account is already established.\n/get_key or /gk to get your key.",
+            )
+        else:
+            while True:
+                '''
+                Infiteloop as key pairs are genrated randomly, there is absolutely no way of
+                knowing that same value is reapted or not. so db.seesion.commit() will return error if
+                a exact same key is returned, due to unique contraint in UserAccount model.
+                '''
+                account = UserAccount(username)
+                db.session.add(account)
+                try:
+                    db.session.commit()
+                    help(message)
+                    get_key(message)
+                    break
+                except:
+                    db.session.rollback()
+                    pass
     else:
-        while True:
-            '''
-            Infiteloop as key pairs are genrated randomly, there is absolutely no way of
-            knowing that same value is reapted or not. so db.seesion.commit() will return error if
-            a exact same key is returned, due to unique contraint in UserAccount model.
-            '''
-            account = UserAccount(username)
-            db.session.add(account)
-            try:
-                db.session.commit()
-                help(message)
-                get_key(message)
-                break
-            except:
-                db.session.rollback()
-                pass
+        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
 
 
 @bot.message_handler(commands=["get_key", "gk"])
 def get_key(message):
     username = message.from_user.username
 
-    account = UserAccount.query.filter_by(
-        username_hash=sha512(bytes(username, "utf-8")).hexdigest()
-    ).first()
+    if username is not None:        
+        account = UserAccount.query.filter_by(
+            username_hash= sha512(bytes(username, "utf-8")).hexdigest()
+        ).first()
 
-    if account is not None:
-        bot.send_message(message.chat.id, "Here is your public key.")
-        bot.send_message(message.chat.id, account.public_key)
+        if account is not None:
+            bot.send_message(message.chat.id, "Here is your public key.")
+            bot.send_message(message.chat.id, account.public_key)
+        else:
+            bot.reply_to(message, "Unable to fetch userkey.")
     else:
-        bot.reply_to(message, "Unable to fetch userkey.")
+        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
+
 
 
 @bot.message_handler(commands=["help", "h"])
@@ -229,7 +236,7 @@ def home(message):
 def icon(message):
     bot.send_message(
         message.chat.id,
-        "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom every mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
+        "The icon of the `MasquerBot` consists of 4 components.\n\n• *Masque*: It is the war-masque wore by `Tobi`. Whom everyone mistakes for `Uchiha Madara`, but he was actually `Uchiha Obito`. These multiple layers of facade fits the theme of the bot.\n\n• *Left Eye*: The `Rinne-Sharingan` is a dōjutsu kekkei mōra. It can be used to cast an illusionary technique that traps the whole world. It symbolizes the state-of-the-art encryption algorithm used in the bot.\n\n• *Right Eye*: The `Jōgan` is a unique dōjutsu. It can clearly see the key point in the chakra system. It represents the pixel-manipulation power of bot.",
         parse_mode="Markdown",
     )
 
