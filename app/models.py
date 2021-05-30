@@ -86,7 +86,7 @@ def delete_function():
             (EncryptionCache.created_at + timedelta(seconds=600)) < datetime.now()
         ).delete()
     except:
-        db.seesion.rollback()
+        db.session.rollback()
         pass
 
     try:
@@ -94,5 +94,5 @@ def delete_function():
             (DecryptionCache.created_at + timedelta(seconds=600)) < datetime.now()
         ).delete()
     except:
-        db.seesion.rollback()
+        db.session.rollback()
         pass

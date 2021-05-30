@@ -43,7 +43,7 @@ def start(message):
             while True:
                 '''
                 Infiteloop as key pairs are genrated randomly, there is absolutely no way of
-                knowing that same value is reapted or not. so db.seesion.commit() will return error if
+                knowing that same value is reapted or not. so db.session.commit() will return error if
                 a exact same key is returned, due to unique contraint in UserAccount model.
                 '''
                 account = UserAccount(username)
@@ -57,16 +57,18 @@ def start(message):
                     db.session.rollback()
                     pass
     else:
-        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
+        bot.send_message(
+            message.chat.id, "No username found! create username and then /start again."
+        )
 
 
 @bot.message_handler(commands=["get_key", "gk"])
 def get_key(message):
     username = message.from_user.username
 
-    if username is not None:        
+    if username is not None:
         account = UserAccount.query.filter_by(
-            username_hash= sha512(bytes(username, "utf-8")).hexdigest()
+            username_hash=sha512(bytes(username, "utf-8")).hexdigest()
         ).first()
 
         if account is not None:
@@ -75,8 +77,9 @@ def get_key(message):
         else:
             bot.reply_to(message, "Unable to fetch userkey.")
     else:
-        bot.send_message(message.chat.id, "No username found! create username and then /start again.")
-
+        bot.send_message(
+            message.chat.id, "No username found! create username and then /start again."
+        )
 
 
 @bot.message_handler(commands=["help", "h"])
@@ -91,7 +94,7 @@ def help(message):
     )
     bot.send_message(
         message.chat.id,
-        "If you truly have a paranoia about security. A VPN is recommended during /encrypt and /decrypt."
+        "If you truly have a paranoia about security. A VPN is recommended during /encrypt and /decrypt.",
     )
     bot.send_message(
         message.chat.id,
