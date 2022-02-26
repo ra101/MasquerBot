@@ -22,27 +22,12 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
 **Video Tutorial:** [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)
 
 
-<br><br>
+https://user-images.githubusercontent.com/34714949/155849934-d0eb97b2-9211-40d9-94d0-bfe812da8892.mp4
 
-##  🗂Index
 
-- [About](#about)
-  - [Workflow](#workflow)
-  - [Available Commands](#available-commands)
-  - [Features](#features)
-- [Development](#development)
-  - [Setup](#setup)
-  - [Run on localhost](#localhost)
-  - [Run on Server](#server)
-- [Breakdown of `requirements.txt`](#breakdown-of-requirementstxt)
-- [File Structure](#file-structure)
-- [Donations](#donations)
-- [Credit/Acknowledgment](#creditacknowledgment)
-- [License](#license)
-- [Contact Me](#contact-me)
+
 
 <br><br>
-
 
 ## 💼About
 
@@ -225,49 +210,6 @@ Following are the steps to run on server.
 | stegano          | A pure Python Steganography module.                          |
 
 <br><br>
-
-
-
-## 📂File Structure
-
-#### Below is the current file structure.
-
-```bash
-./MasquerBot
-├── .env.template
-├── .gitignore
-|
-├───/apps
-│   ├── __init__.py
-│   ├── config.py
-│   ├── controllers.py
-│   ├── masquer_bot.py
-│   ├── models.py
-│   ├── routes.py
-│   └── utils.py
-│
-├───/assets
-│   ├── favicon.ico
-│   ├── Lenna.png
-│   ├── Lenna-encoded.png
-│   ├── logo_circle.png
-│   └── logo_square.png
-│
-├── LICENSE
-├── makefile
-├── Procfile
-├── pyvenv.cfg
-├── README.md
-├── requirements.txt
-├── runtime.txt
-├── scheduler.py
-└── wsgi.py
-
-2 directories, 23 files
-```
-
-<br><br>
-
 
 
 ## 🎁Donations
