@@ -6,6 +6,7 @@ CacheControl
 certifi
 cffi
 chardet
+charset-normalizer
 click
 coincurve
 colorama
@@ -22,6 +23,7 @@ eth-utils
 Flask
 Flask-RESTful
 Flask-SQLAlchemy
+greenlet
 gunicorn
 html5lib
 idna
@@ -31,6 +33,8 @@ Jinja2
 lockfile
 MarkupSafe
 msgpack
+numpy
+opencv-python
 packaging
 pep517
 piexif
@@ -44,12 +48,15 @@ pyTelegramBotAPI
 python-dotenv
 pytoml
 pytz
+pytz-deprecation-shimpost0
 requests
 retrying
 six
 SQLAlchemy
 stegano
+tomli
 toolz
+tzdata
 tzlocal
 urllib3
 webencodings
