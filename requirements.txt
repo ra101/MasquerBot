@@ -48,7 +48,6 @@ pyTelegramBotAPI
 python-dotenv
 pytoml
 pytz
-pytz-deprecation-shimpost0
 requests
 retrying
 six
