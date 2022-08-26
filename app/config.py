@@ -12,7 +12,7 @@ DEBUG = True if os.getenv("FLASK_DEBUG") == "True" else False
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 ENV = os.getenv("FLASK_ENV")
 
-SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://")
+SQLALCHEMY_DATABASE_URI = os.getenv("BOREALIS_PG_CYAN_URL").replace("postgres://", "postgresql://")
 SQLALCHEMY_TRACK_MODIFICATIONS = (
     True if os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS") == "True" else False
 )
