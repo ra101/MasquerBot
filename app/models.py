@@ -13,9 +13,9 @@ db = SQLAlchemy()
 class UserAccount(db.Model):
     __tablename__ = "user_accounts"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username_hash = db.Column(db.Text(), unique=True, nullable=False)
-    private_key = db.Column(db.Text(), unique=True, nullable=False)
-    public_key = db.Column(db.Text(), unique=True, nullable=False)
+    username_hash = db.Column(db.String(256), unique=True, nullable=False)
+    private_key = db.Column(db.String(72), unique=True, nullable=False)
+    public_key = db.Column(db.String(144), unique=True, nullable=False)
 
     def __init__(self, username):
         self.username_hash = sha512(bytes(username, "utf-8")).hexdigest()
@@ -35,8 +35,8 @@ constant Database.
 class EncryptionCache(db.Model):
     __tablename__ = "encryption_cache"
     chat_id = db.Column(db.Integer, primary_key=True)
-    public_key = db.Column(db.Text(), nullable=True)
-    message = db.Column(db.Text(), nullable=True)
+    public_key = db.Column(db.String(144), nullable=True)
+    message = db.Column(db.String(4096), nullable=True)
     created_at = db.Column(db.DateTime())
     # A Photo is excluded due to size limit and thefore is asked at last in encryption process.
 

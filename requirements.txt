@@ -60,3 +60,4 @@ tzlocal
 urllib3
 webencodings
 Werkzeug
+pymysql
