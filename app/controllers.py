@@ -3,7 +3,7 @@
 '''
 from telebot.types import Update
 from flask_restful import Resource
-from flask import request, redirect
+from flask import request, redirect, make_response
 
 
 from app.masquer_bot import bot
@@ -15,7 +15,7 @@ class HomeController(Resource):
     '''
 
     def get(self):
-        return "Hello World"
+        return make_response("Hello World")
 
 
 class FaviconController(Resource):
