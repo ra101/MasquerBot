@@ -1,6 +1,5 @@
 
 <div align="center">
-<h1> MasquerBot </h1>
 <p align="center">
   <img src="./assets/logo_circle.png" width="250px" height="250px">
 </p>
