@@ -17,6 +17,21 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
 
 - _PNGs are recommended better performance._
 
+
+<br>
+
+### ⚡Features:
+
+- Saves `Hashes` instead of username.
+- `unique constraint` prevents duplicacy. 
+- Message is first `encrypted` then `steganography` is performed.
+- `ECDSA` is used, which means less time on computation and powerful encryption.
+- `Dynamic URL`: URL changes every `6 hours and 5 minutes`, with `130 char long`, making it impossible to send through any means other than telegram since URL remains unknown to everyone except telegram.
+- `Gunicorn` creates multiple workers hence supporting parallel processing.
+- Process Management: All processes are cancelled before starting a new one. `Triggers` are added to delete any process with a timestamp older than 10 minutes.
+A few cool `Easter Eggs` are there as well.
+
+
 <br>
 
 **Video Tutorial:** [LRBY](https://lbry.tv/@ra101/MasquerBot)  |  [YouTube](https://www.youtube.com/watch?v=yH3SVmCZD7Q)
@@ -32,9 +47,9 @@ This `TelegramBot` uses state-of-the-art encryption algorithm *(ECDSA)* and pixe
 
 ### 📈Workflow
 
-How this works is, everyone is given a public key, that public key is used to lock information, we call it public key as it can be publicly distributed. 
+How this works is, that everyone is given a public key, which is used to lock information, we call it "public key" as it can be publicly distributed. 
 
-So to masque a message both sender and receiver must initiate MasquerBot's Service. Each message is masqued only for receiver, if receiver changes xer key then decryption would be impossible.
+So to masque a message both sender and receiver must initiate MasquerBot's Service. Each message is masqued only for the receiver, if the receiver changes their key then decryption would be impossible.
 
 <br>
 
@@ -47,25 +62,11 @@ So to masque a message both sender and receiver must initiate MasquerBot's Servi
 - [**/encrypt**](#desktop_computer-available-commands):  Returns the `encoded image`.
   - Step 1: Send the `message` to encrypt.
   - Step 2: Send the recipient's `public key` **(not yours)**.
-  - Step 3: Send the `image` **(as document)**.
+  - Step 3: Send the `image` **(as a document)**.
 - [**/decrypt**](#desktop_computer-available-commands):  Returns the `hidden text`.
-  - Step 1: Send the `encoded image` **(as document)**.
+  - Step 1: Send the `encoded image` **(as a document)**.
 - [**/cancel**](#desktop_computer-available-commands):  Cancels any ongoing events.
-- [**/request_new_key**](#desktop_computer-available-commands):  Deletes your account and creates another one. **Beware! Once deleted you cant retrieve any text masqued using previous key.** 
-
-<br>
-
-### ⚡Features:
-
-- Saves `Hashes` instead of username.
-- `unique contraint` prevents duplicacy. 
-- Message is first `encrypted` then `steganography` is performed.
-- `ECDSA` is used. which means less time on computation and powerful encryption.
-- `Dynamic URL`: URL changes every `6 hours and 5 minutes`, with `130 char long`, therefore making it impossible to send through any means other than telegram since URL remains unknown to everyone except telegram.
-- `Gunicorn` creates multiple workers hence supporting parallel processing.
-- Process Management: All process are cancelled before starting a new one. `Triggers` are added to delete any process with timestamp older than 10 minutes.
-- Few cool `Easter Eggs` are there as well.
-
+- [**/request_new_key**](#desktop_computer-available-commands):  Deletes your account and creates another one. **Beware! Once deleted you cant retrieve any text masqued using the previous key.** 
 
 
 <br>
